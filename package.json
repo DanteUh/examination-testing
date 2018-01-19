@@ -1,6 +1,6 @@
 {
   "name": "offline-forum",
-  "description" : "An offline forum that uses localStorage as API. Primary used to unit/integration/e2e-test",
+  "description": "An offline forum that uses localStorage as API. Primary used to unit/integration/e2e-test",
   "version": "0.1.0",
   "private": true,
   "author": "Jesper Orb <jesperorb@gmail.com> (https://jesperorb.com/)",
@@ -27,9 +27,11 @@
     "eslint-config-prettier": "2.9.0",
     "eslint-plugin-react": "7.5.1"
   },
-  "jest" : {
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
-    "collectCoverageFrom" : [
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!<rootdir>/src/setupTests.js",
       "!<rootdir>/src/fakePosts.js",
