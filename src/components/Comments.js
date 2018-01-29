@@ -30,6 +30,8 @@ class Comments extends Component {
         {...comment}
         key={comment.id}
         onClick={this.removeComment}
+        /* Had to put in this prop because it gives error when mounting Comments in tests */
+        currentPersona={this.props.currentPersona}
       />
     ));
 

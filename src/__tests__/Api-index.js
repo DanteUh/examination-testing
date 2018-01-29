@@ -1,5 +1,6 @@
 import * as api from '../api';
 import fakePosts from '../fakePosts';
+import { filterComments } from '../api';
 
 beforeEach(() =>{
   localStorage.clear();
@@ -28,13 +29,36 @@ describe('Posts tests', () => {
 });
 
 describe('Comments tests', () => {
-  it.skip('should store comment object', () => {
+
+  it('should store comment object', () => {
     const commentObject = {comment: 'Hello Mr. Bister!', postId: 1, author: 'Hej'};
-    api.storeCommentObject(object);
+    api.storeCommentObject(commentObject);
     const storageItem = JSON.parse(localStorage.getItem('comments'));
-    expect(storageItem).toBe(commentObject);
+    expect(storageItem).toEqual(commentObject);
   });
 
-  it.skip('should remove comment', () => {
+  it('should filter comments', () => {
+    const comments = [
+      {comment: 'Hejpådig!', postId: 1, author: 'Steffe'},
+      {comment: 'Inte bra!', postId: 2, author: 'Esmeralda'},
+      {comment: 'Det tror jag inte?', postId: 3, author: 'Zac'},
+      {comment: 'Vad vet jag?', postId: 2, author: 'Zac'}
+    ];
+    const expectedComment = [{comment: 'Inte bra!', postId: 2, author: 'Esmeralda'}, {comment: 'Vad vet jag?', postId: 2, author: 'Zac'}];
+    const filteredComments = api.filterComments(comments, 2);
+    expect(filteredComments).toEqual(expectedComment);
+  });
+  it('should remove comment', () => {
+    const comments = [
+      {id: 10, comment: 'Hejpådig!', postId: 1, author: 'Steffe'},
+      {id: 11, comment: 'Inte bra!', postId: 2, author: 'Esmeralda'},
+      {id: 12, comment: 'Det tror jag inte?', postId: 3, author: 'Zac'},
+      {id: 13, comment: 'Vad vet jag?', postId: 2, author: 'Zac'}
+    ];
+    const stringyFiedArray = JSON.stringify(comments);
+    localStorage.setItem('posts', stringyFiedArray);
+    api.removeComment(12);
+    const newComments = JSON.parse(localStorage.getItem('comments'));
+    expect(newComments.length).toBe(3);
   });
 });
