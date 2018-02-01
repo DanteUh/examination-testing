@@ -18,7 +18,7 @@ describe('Posts test', () => {
     const wrapper = mount(<Posts currentPersona='Esmeralda' />);
     wrapper.setState({ posts: fakePosts.data });
     wrapper.instance().renderPostList(fakePosts.data);
-    expect(wrapper.find('h2').first().text()).toEqual('Everyday Hero: When This Pregnant Woman Couldn’t Find A Seat On A Train, This Man Decided To Stand On His In Solidarity');
+    expect(wrapper.find('h2').first().text()).toEqual(fakePosts.data[0].title);
   });
 
   it('should remove post', () => {
@@ -50,5 +50,14 @@ describe('Create post tests', () => {
     const onChange = {target: { name: 'content', value: content }};
     wrapper.find('textarea[name="content"]').simulate('change', onChange);
     expect(wrapper.state().content).toEqual(content);
+  });
+  it.skip('simulating submitting new post', () => {
+    const updatePosts = mount(<Posts currentPersona='Zac' />).instance().setPostFromLocalStorage;
+    const posts = "Superbra när man har bananer!";
+    const wrapper = mount(<CreateNewPost postId='2' author='Zac' updatePosts={updatePosts} />);
+    wrapper.setState({ posts });
+    wrapper.find('form').simulate('submit');
+    const fetchedPost = JSON.parse(localStorage.getItem('posts'));
+    expect(fetchedPost[0].posts).toEqual(posts);
   });
 });

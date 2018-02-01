@@ -17,12 +17,14 @@ describe('Posts tests', () => {
     const fetchedPosts = api.fetchAllPosts();
     expect(fetchedPosts).toEqual(fakePosts.data);
   });
+
   it('should not fetch all posts', () => {
     const comments = JSON.stringify(fakePosts.data);
     localStorage.setItem('coments', comments);
     const fetchedComments = api.fetchAllCommments();
     expect(fetchedComments).toEqual([]);
   });
+
   it('should remove post', () => {
     const postId = '565ddy34';
     api.storePostObject(fakePosts.data);
@@ -38,11 +40,9 @@ describe('Posts tests', () => {
     const postObject2 = api.createPostObject('Bananas', 'Did you know that banans are berries?', 'Esmeralda');
     const database = [postObject1, postObject2];
     api.storePostObject(database);
-    const fetchedPosts = api.fetchAllPosts();
-    expect(fetchedPosts).toEqual(database);
+    expect(api.fetchAllPosts()).toEqual(database);
     api.removePost(postObject1.id);
-    const fetchedUpdatedPosts = api.fetchAllPosts();
-    expect(fetchedUpdatedPosts).toEqual([postObject2]);
+    expect(api.fetchAllPosts()).toEqual([postObject2]);
   });
 });
 

@@ -45,8 +45,8 @@ describe('Change persona', () => {
     const newPersona = 'Zac';
     const wrapper = mount(<App />);
     wrapper.setState({ currentPersona: 'Esmeralda' })
-    expect(wrapper.state().currentPersona).toBe('Esmeralda');
+    expect(wrapper.state().currentPersona).toEqual('Esmeralda');
     wrapper.instance().changePersona({ newPersona });
-    expect(wrapper.state().currentPersona).toBe(newPersona);
+    expect(wrapper.state().currentPersona).toEqual(newPersona);
   });
 });
