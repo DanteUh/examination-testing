@@ -23,7 +23,7 @@ describe('Create New Comment', () => {
   it.skip('simulate submiting a comment', () => {
     const comment = "Inte bra när man ej har bananer";
     const wrapper = mount(<CreateNewComment postId='2' author='Zac' updateComments={setCommentsFromLocalStorage} />);
-    wrapper.setState({ comment: comment });
+    wrapper.setState({ comment });
     wrapper.find('form').simulate('submit');
     const fetchedComment = JSON.parse(localStorage.getItem('comments'));
     expect(fetchedComment).toEqual(comment);
